@@ -98,7 +98,7 @@ function library:LoadConfig(config)
 			if option.hasInit then
 				if option.type ~= "button" and option.flag and not option.skipflag then
 					if option.type == "toggle" then
-						spawn(function() option:SetState(Config[option.flag] == 1) end)
+						spawn(function() option.SetState(Config[option.flag] == 1) end)
 					elseif option.type == "color" then
 						if Config[option.flag] then
 							spawn(function() option:SetColor(Config[option.flag]) end)
@@ -361,7 +361,7 @@ library.createToggle = function(option, parent)
 
 	option.interest.InputBegan:connect(function(input)
 		if input.UserInputType.Name == "MouseButton1" then
-			option:SetState(not option.state)
+			option.SetState(not option.state)
 		end
 		if input.UserInputType.Name == "MouseMovement" then
 			if not library.warning and not library.slider then
@@ -405,7 +405,7 @@ library.createToggle = function(option, parent)
 		end
 	end)
 
-	function option:SetState(state, nocallback)
+	function option.SetState(state, nocallback)
 		state = typeof(state) == "boolean" and state
 		state = state or false
 		library.flags[self.flag] = state
